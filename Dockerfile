@@ -20,5 +20,6 @@ RUN apt-get install -y curl grep sed dpkg && \
 
 ENV PATH /opt/conda/bin:$PATH
 
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
-CMD [ "/bin/bash" ]
+ONBUILD ADD requirements.txt /app/user/
+ONBUILD RUN /app/.heroku/python/bin/pip install -r requirements.txt
+ONBUILD ADD . /app/user/
